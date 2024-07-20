@@ -1,0 +1,11 @@
+{
+    "name": "com.yellduck.betterunitydropdown",
+    "displayName": "Better Unity Dropdown",
+    "author": { "name": "Daniel Keen", "url": "http://danielkeen.xyz" },
+    "version": "1.0.0",
+    "unity": "2022.3",
+    "description": "A better version of Unity Dropdown component.",
+    "keywords": [ "dropdown" ],
+    "license": "MIT",
+    "dependencies": {}
+}
