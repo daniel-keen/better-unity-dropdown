@@ -464,7 +464,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainScript: {fileID: 828924717374037248}
   id: 0
-  text: 
+  Data:
+    Text: 
   targetText: {fileID: 828924717195127247}
   selector: {fileID: 828924716449276747}
 --- !u!1 &828924717040132810
@@ -1023,10 +1024,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Value: -1
   DefaultText: Select item
-  OptionsList:
-  - nameText: Item 1
-  - nameText: Item 2
-  - nameText: Item 3
+  Data:
+  - Text: Item 1
+  - Text: Item 2
+  - Text: Item 3
   targetText: {fileID: 828924715931702908}
   blockerPrefab: {fileID: 4543260000569864323, guid: 59b25222924e32c44a5af57e24d6d0f6, type: 3}
   optionsObject: {fileID: 828924715959281223}

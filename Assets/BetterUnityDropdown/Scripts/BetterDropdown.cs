@@ -10,8 +10,8 @@ namespace BetterUnityDropdown
     public class BetterDropdown : MonoBehaviour
     {
         public int Value = -1; //Current value
-        public string DefaultText = "Select item"; //Default text
-        public List<BetterDropdownOption> OptionsList = new(); //List of all options
+        public string DefaultText = "Select item";
+        public List<DropdownItemData> Data = new();
         [SerializeField] private TextMeshProUGUI targetText; //Text component
         [SerializeField] private GameObject blockerPrefab; //Blocker object
         [SerializeField] private RectTransform optionsObject; //Options object
@@ -37,11 +37,8 @@ namespace BetterUnityDropdown
         private bool _isOpened; //Is opened options
         private CanvasGroup _optionCanvasGroup; //Option canvas group component
 
-        public Action<int> OnValueChanged; //Action that executes when user select an option
+        public Action<int> OnValueChanged;
 
-        /// <summary>
-        /// Set default text "defaultText" to a dropdown and unselect the last selected option
-        /// </summary>
         public void SetDefaultText()
         {
             Value = -1;
@@ -49,32 +46,29 @@ namespace BetterUnityDropdown
         }
 
         /// <summary>
-        /// Add one option
+        /// Add item data
         /// </summary>
-        /// <param name="targetOption">Target option text</param>
-        public void AddOptions(string targetOption)
+        /// <param name="item">Item data</param>
+        public void Add(DropdownItemData item)
         {
-            OptionsList.Add(new BetterDropdownOption(targetOption));
+            Data.Add(item);
         }
 
         /// <summary>
-        /// Add an array of options
+        /// Add an array of item data
         /// </summary>
-        /// <param name="targetOptions">Array of options</param>
-        public void AddOptions(string[] targetOptions)
+        /// <param name="items">Array of item data</param>
+        public void Add(DropdownItemData[] items)
         {
-            for (int i = 0; i < targetOptions.Length; i++)
-            {
-                OptionsList.Add(new BetterDropdownOption(targetOptions[i]));
-            }
+            Data.AddRange(items);
         }
 
         /// <summary>
-        /// Delete of options
+        /// Delete all items
         /// </summary>
-        public void DeleteAllOptions()
+        public void ClearAll()
         {
-            OptionsList.Clear();
+            Data.Clear();
         }
 
         /// <summary>
@@ -84,20 +78,20 @@ namespace BetterUnityDropdown
         {
             if (!_isOpened)
             {
-                OpenOptions();
+                Open();
             }
             else
             {
-                CloseOptions();
+                Close();
             }
         }
 
         /// <summary>
         /// Open options method
         /// </summary>
-        public void OpenOptions()
+        public void Open()
         {
-            if (OptionsList.Count == 0)
+            if (Data.Count == 0)
             {
                 return;
             }
@@ -129,17 +123,17 @@ namespace BetterUnityDropdown
 
             _isOpened = true;
             _spawnedList.Clear();
-            for (int i = 0; i < OptionsList.Count; i++)
+            for (int i = 0; i < Data.Count; i++)
             {
                 var newOption = Instantiate(_firstObj, optionsContent).GetComponent<OptionScript>();
                 newOption.gameObject.SetActive(true);
-                newOption.InitOption(i, OptionsList[i].nameText);
+                newOption.Init(i, Data[i]);
                 _spawnedList.Add(newOption);
             }
             optionsObject.GetChild(0).GetComponent<AutoSizeLayoutDropdown>().UpdateAllRect();
             StartCoroutine(WaitForSeveralFrames());
             _currentBlocker = Instantiate(blockerPrefab, _targetCanvas);
-            _currentBlocker.GetComponent<Button>().onClick.AddListener(new UnityEngine.Events.UnityAction(CloseOptions));
+            _currentBlocker.GetComponent<Button>().onClick.AddListener(new UnityEngine.Events.UnityAction(Close));
             _currentBlocker.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
             _currentBlocker.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
         }
@@ -147,7 +141,7 @@ namespace BetterUnityDropdown
         /// <summary>
         /// Close options method
         /// </summary>
-        public void CloseOptions()
+        public void Close()
         {
             switch (dropdownAnimationType)
             {
@@ -220,16 +214,13 @@ namespace BetterUnityDropdown
                     break;
             }
             Value = id;
-            targetText.text = OptionsList[id].nameText;
+            targetText.text = Data[id].Text;
             for (int i = 0; i < _spawnedList.Count; i++)
             {
                 _spawnedList[i].SetSelectState(i == Value);
             }
-            CloseOptions();
-            if (OnValueChanged != null)
-            {
-                OnValueChanged(id);
-            }
+            Close();
+            OnValueChanged?.Invoke(id);
         }
 
         private RectTransform FindCanvas(RectTransform currentParent)

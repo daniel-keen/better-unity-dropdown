@@ -8,25 +8,22 @@ namespace BetterUnityDropdown
     /// </summary>
     public class OptionScript : MonoBehaviour
     {
-        public BetterDropdown mainScript; //Reference to a main script
-
+        public BetterDropdown mainScript;
         public int id; //Id in list
-        public string text; //Text of the option
-
+        public DropdownItemData Data;
         public TextMeshProUGUI targetText; //Text component
-
         public GameObject selector; //Selector object
 
         /// <summary>
-        /// Initialize options
+        /// Initialize items
         /// </summary>
-        /// <param name="id">Option ID</param>
-        /// <param name="text">Option Text</param>
-        public void InitOption(int id, string text)
+        /// <param name="id">Item ID</param>
+        /// <param name="data">Item Data</param>
+        public virtual void Init(int id, DropdownItemData data)
         {
             this.id = id;
-            this.text = text;
-            targetText.text = text;
+            Data = data;
+            targetText.text = data.Text;
             selector.SetActive(id == mainScript.Value);
         }
 

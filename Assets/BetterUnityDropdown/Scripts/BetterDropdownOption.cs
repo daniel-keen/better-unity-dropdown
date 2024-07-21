@@ -5,15 +5,11 @@ namespace BetterUnityDropdown
     [Serializable]
     public class BetterDropdownOption
     {
-        public string nameText; //Text for option
+        public DropdownItemData Data;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="nameText">Text for option</param>
-        public BetterDropdownOption(string nameText)
+        public BetterDropdownOption(DropdownItemData data)
         {
-            this.nameText = nameText;
+            Data = data;
         }
     }
 }
