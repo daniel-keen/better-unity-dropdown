@@ -9,10 +9,11 @@ namespace BetterUnityDropdown
     public class OptionScript : MonoBehaviour
     {
         public BetterDropdown mainScript;
-        public int id; //Id in list
-        public DropdownItemData Data;
-        public TextMeshProUGUI targetText; //Text component
-        public GameObject selector; //Selector object
+        public TextMeshProUGUI targetText;
+        public GameObject selector;
+
+        public int Id { get; private set; }
+        public DropdownItemData Data { get; private set; }
 
         /// <summary>
         /// Initialize items
@@ -21,7 +22,7 @@ namespace BetterUnityDropdown
         /// <param name="data">Item Data</param>
         public virtual void Init(int id, DropdownItemData data)
         {
-            this.id = id;
+            Id = id;
             Data = data;
             targetText.text = data.Text;
             selector.SetActive(id == mainScript.Value);
@@ -32,7 +33,7 @@ namespace BetterUnityDropdown
         /// </summary>
         public void ClickSelf()
         {
-            mainScript.SelectOption(id);
+            mainScript.SelectOption(Id);
         }
 
         /// <summary>

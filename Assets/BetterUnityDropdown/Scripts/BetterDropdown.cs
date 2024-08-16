@@ -9,33 +9,33 @@ namespace BetterUnityDropdown
 {
     public class BetterDropdown : MonoBehaviour
     {
-        public int Value = -1; //Current value
+        public int Value = -1;
         public string DefaultText = "Select item";
         public List<DropdownItemData> Data = new();
-        [SerializeField] private TextMeshProUGUI targetText; //Text component
-        [SerializeField] private GameObject blockerPrefab; //Blocker object
-        [SerializeField] private RectTransform optionsObject; //Options object
-        [SerializeField] private RectTransform optionsContent; //Options content
-        [SerializeField] private AnimationDropdownTypes dropdownAnimationType = AnimationDropdownTypes.Shrinking; //Currently selected animation
-        [SerializeField] private float speedOfShrinking = 70; //Speed of shrinking
-        [SerializeField] private float speedOfFading = 4; //Speed of fading
-        [SerializeField] private float maximumDropdownHeight = 350; //Maximum dropdown height
-        [SerializeField] private AutoSizeLayoutDropdown optionsDropdown; //Options dropdown resizer
-        [SerializeField] private AnimationCurve curveShrinking; //Curve for shrinking trajectory
-        [SerializeField] private Canvas _backCanvasSorting; //Back canvas sorting object (Setted by default)
-        [SerializeField] private Canvas _optionsCanvasSorting; //Options canvas sorting object (Setted by default)
-        private readonly List<OptionScript> _spawnedList = new(); //List of all spawned options
+        [SerializeField] private TextMeshProUGUI targetText;
+        [SerializeField] private GameObject blockerPrefab;
+        [SerializeField] private RectTransform optionsObject;
+        [SerializeField] private RectTransform optionsContent;
+        [SerializeField] private AnimationDropdownTypes dropdownAnimationType = AnimationDropdownTypes.Shrinking;
+        [SerializeField] private float _shrinkSpeed = 70;
+        [SerializeField] private float _fadeSpeed = 4;
+        [SerializeField] private float _maximumDropdownHeight = 350;
+        [SerializeField] private AutoSizeLayoutDropdown optionsDropdown;
+        [SerializeField] private AnimationCurve curveShrinking;
+        [SerializeField] private Canvas _backCanvasSorting;
+        [SerializeField] private Canvas _optionsCanvasSorting;
+        private readonly List<OptionScript> _spawnedList = new();
         private GameObject _firstObj;
-        private float _targetPos; //Target position for shrinking
-        private float _targetFade; //Target fade value
-        private float _startPos; //Start position for shrinking
-        private float _startFade; //Start fade value
-        private float _ratioShrinking = 1; //Ratio of shrinking
-        private float _ratioFading = 1; //Ratio of fading
-        private RectTransform _targetCanvas; //Target canvas
-        private GameObject _currentBlocker; //Current blocker
-        private bool _isOpened; //Is opened options
-        private CanvasGroup _optionCanvasGroup; //Option canvas group component
+        private float _targetPos;
+        private float _targetFade;
+        private float _startPos;
+        private float _startFade;
+        private float _ratioShrinking = 1;
+        private float _ratioFading = 1;
+        private RectTransform _targetCanvas;
+        private GameObject _currentBlocker;
+        private bool _isOpened;
+        private CanvasGroup _optionCanvasGroup;
 
         public Action<int> OnValueChanged;
 
@@ -271,7 +271,7 @@ namespace BetterUnityDropdown
         /// </summary>
         private void Update()
         {
-            optionsDropdown.maxSize = maximumDropdownHeight;
+            optionsDropdown.maxSize = _maximumDropdownHeight;
             if (!optionsObject.gameObject.activeSelf)
             {
                 return;
@@ -279,7 +279,7 @@ namespace BetterUnityDropdown
             switch (dropdownAnimationType)
             {
                 case AnimationDropdownTypes.Shrinking:
-                    _ratioShrinking = Mathf.Clamp(_ratioShrinking + (speedOfShrinking * Time.deltaTime) * curveShrinking.Evaluate(_ratioShrinking), 0, 1);
+                    _ratioShrinking = Mathf.Clamp(_ratioShrinking + (_shrinkSpeed * Time.deltaTime) * curveShrinking.Evaluate(_ratioShrinking), 0, 1);
                     optionsObject.sizeDelta = new Vector2(optionsObject.sizeDelta.x, Mathf.Lerp(_startPos, _targetPos, _ratioShrinking));
                     if (_ratioShrinking > 0.99f && _targetPos == 0)
                     {
@@ -287,7 +287,7 @@ namespace BetterUnityDropdown
                     }
                     break;
                 case AnimationDropdownTypes.Fading:
-                    _ratioFading = Mathf.Clamp(_ratioFading + (speedOfFading * Time.deltaTime), 0, 1);
+                    _ratioFading = Mathf.Clamp(_ratioFading + (_fadeSpeed * Time.deltaTime), 0, 1);
                     _optionCanvasGroup.alpha = Mathf.Lerp(_startFade, _targetFade, _ratioFading);
                     if (_ratioFading > 0.99f && _targetPos == 0)
                     {
@@ -295,10 +295,10 @@ namespace BetterUnityDropdown
                     }
                     break;
                 case AnimationDropdownTypes.ShrinkingAndFading:
-                    _ratioShrinking = Mathf.Clamp(_ratioShrinking + (speedOfShrinking * Time.deltaTime) * curveShrinking.Evaluate(_ratioShrinking), 0, 1);
+                    _ratioShrinking = Mathf.Clamp(_ratioShrinking + (_shrinkSpeed * Time.deltaTime) * curveShrinking.Evaluate(_ratioShrinking), 0, 1);
                     optionsObject.sizeDelta = new Vector2(optionsObject.sizeDelta.x, Mathf.Lerp(_startPos, _targetPos, _ratioShrinking));
 
-                    _ratioFading = Mathf.Clamp(_ratioFading + (speedOfFading * Time.deltaTime), 0, 1);
+                    _ratioFading = Mathf.Clamp(_ratioFading + (_fadeSpeed * Time.deltaTime), 0, 1);
                     _optionCanvasGroup.alpha = Mathf.Lerp(_startFade, _targetFade, _ratioFading);
                     if (_ratioFading > 0.99f && _ratioShrinking > 0.99f && _targetPos == 0)
                     {
