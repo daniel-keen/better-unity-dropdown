@@ -183,6 +183,17 @@ namespace BetterUnityDropdown
             }
         }
 
+        public void SelectOptionWithoutNotify(int id)
+        {
+            Value = id;
+            targetText.text = Data[id].Text;
+            for (int i = 0; i < _spawnedList.Count; i++)
+            {
+                _spawnedList[i].SetSelectState(i == Value);
+            }
+            Close();
+        }
+
         /// <summary>
         /// Select option
         /// </summary>
