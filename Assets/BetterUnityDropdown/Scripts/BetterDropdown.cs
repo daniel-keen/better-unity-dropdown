@@ -185,6 +185,12 @@ namespace BetterUnityDropdown
 
         public void SelectOptionWithoutNotify(int id)
         {
+            if (id < 0 || id >= Data.Count)
+            {
+                Debug.LogWarning($"{id} is outside of bounds: {Data.Count}");
+                return;
+            }
+
             Value = id;
             targetText.text = Data[id].Text;
             for (int i = 0; i < _spawnedList.Count; i++)
@@ -224,6 +230,13 @@ namespace BetterUnityDropdown
                     }
                     break;
             }
+
+            if (id < 0 || id >= Data.Count)
+            {
+                Debug.LogWarning($"{id} is outside of bounds: {Data.Count}");
+                return;
+            }
+
             Value = id;
             targetText.text = Data[id].Text;
             for (int i = 0; i < _spawnedList.Count; i++)
