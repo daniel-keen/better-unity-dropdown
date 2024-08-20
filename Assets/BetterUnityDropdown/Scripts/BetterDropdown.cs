@@ -168,7 +168,6 @@ namespace BetterUnityDropdown
                     break;
             }
 
-            _isOpened = false;
             _ratioShrinking = 0;
             _ratioFading = 0;
             _startPos = optionsObject.sizeDelta.y;
@@ -350,6 +349,7 @@ namespace BetterUnityDropdown
 
         private void Closed()
         {
+            _isOpened = false;
             _optionsCanvasSorting.overrideSorting = false;
             _backCanvasSorting.overrideSorting = false;
             _optionsCanvasSorting.sortingOrder = 100;
