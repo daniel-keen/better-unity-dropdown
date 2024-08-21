@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Linq;
 
 namespace BetterUnityDropdown
 {
@@ -63,10 +64,12 @@ namespace BetterUnityDropdown
             Data.AddRange(items);
         }
 
-        public void RemoveAt(int index)
+        public int RemoveById(string id)
         {
             Close();
-            Data.RemoveAt(index);
+
+            var itemsToDelete = Data.Where(d => d.Id == id);
+            return Data.RemoveAll(d => d.Id == id);
         }
 
         /// <summary>

@@ -304,7 +304,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Remove item
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -331,12 +331,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 20
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1788,7 +1788,7 @@ GameObject:
   - component: {fileID: 2109451911}
   - component: {fileID: 2109451910}
   m_Layer: 5
-  m_Name: btnDeleteFirstFromCustom
+  m_Name: btnRemoveById
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1811,8 +1811,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 221.29999, y: 0.000015258789}
-  m_SizeDelta: {x: 160, y: 68.225}
+  m_AnchoredPosition: {x: 221.29999, y: -0.00000095367}
+  m_SizeDelta: {x: 160, y: 46.348}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2109451910
 MonoBehaviour:
@@ -1858,16 +1858,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 828924716941151844}
-        m_TargetAssemblyTypeName: BetterUnityDropdown.BetterDropdown, BetterUnityDropdown
-        m_MethodName: RemoveAt
-        m_Mode: 3
+      - m_Target: {fileID: 828924716941151851}
+        m_TargetAssemblyTypeName: CustomDropdownDataExample, Assembly-CSharp
+        m_MethodName: RemoveItemById
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: item1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2109451911

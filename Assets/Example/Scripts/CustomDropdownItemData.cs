@@ -4,7 +4,7 @@ public class CustomDropdownItemData : DropdownItemData
 {
     public UnityAction TestButtonClicked;
 
-    public CustomDropdownItemData(string text, UnityAction testButtonClicked) : base(text)
+    public CustomDropdownItemData(string id, string text, UnityAction testButtonClicked) : base(id, text)
     {
         TestButtonClicked = testButtonClicked;
     }
