@@ -58,9 +58,15 @@ namespace BetterUnityDropdown
         /// Add an array of item data
         /// </summary>
         /// <param name="items">Array of item data</param>
-        public void Add(DropdownItemData[] items)
+        public void AddRange(IEnumerable<DropdownItemData> items)
         {
             Data.AddRange(items);
+        }
+
+        public void RemoveAt(int index)
+        {
+            Close();
+            Data.RemoveAt(index);
         }
 
         /// <summary>

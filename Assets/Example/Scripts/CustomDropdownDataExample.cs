@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BetterUnityDropdown;
 using UnityEngine;
 
@@ -7,11 +8,20 @@ public class CustomDropdownDataExample : MonoBehaviour
 
     private void Start()
     {
-        var customItemData = new CustomDropdownItemData("Test item", () =>
+        var customItemData1 = new CustomDropdownItemData("Item 1", () =>
         {
             Debug.Log("Hello world!");
             _dropdown.Close();
         });
-        _dropdown.Add(customItemData);
+        var customItemData2 = new CustomDropdownItemData("Item 2", () =>
+        {
+            Debug.Log("Hello world!");
+            _dropdown.Close();
+        });
+        _dropdown.AddRange(new List<CustomDropdownItemData>
+        {
+            customItemData1,
+            customItemData2
+        });
     }
 }
