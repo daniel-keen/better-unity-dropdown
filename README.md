@@ -1,10 +1,9 @@
-<h1 align="middle">Better Unity Dropdown by Daniel Keen</h1>
 <p align="middle">This is a better version of Unity Dropdown component.</p>
 
 ## Installation
 Install via UPM:
 ```
-https://github.com/daniel-keen/better-unity-dropdown.git?path=Assets/BetterUnityDropdown
+git@bitbucket.org:cwtlua/better-unity-dropdown.git?path=Assets/BetterUnityDropdown
 ```
 
 ## How to use:
@@ -16,6 +15,3 @@ This asset replaces the default UI dropdown and allows for full customization, i
 - Each dropdown contains an OptionsObject where you can customize the options style.
 
 All settings and methods are thoroughly documented in the scripts. Each variable and method includes a description, and the code is fully commented, ensuring that the dropdown is fully customizable.
-
-## Help:
-In the event you are unable to find the information you are looking for or have found a bug, please raise an issue here or post a question in the [website](https://danielkeen.xyz).

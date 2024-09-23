@@ -25,6 +25,7 @@ namespace BetterUnityDropdown
         [SerializeField] private AnimationCurve curveShrinking;
         [SerializeField] private Canvas _backCanvasSorting;
         [SerializeField] private Canvas _optionsCanvasSorting;
+        [SerializeField] private Image _dropdownArrowIcon;
         private readonly List<OptionScript> _spawnedList = new();
         private GameObject _firstObj;
         private float _targetPos;
@@ -132,6 +133,7 @@ namespace BetterUnityDropdown
 
             _isOpened = true;
             _spawnedList.Clear();
+            RotateDropdownArrowIcon();
             for (int i = 0; i < Data.Count; i++)
             {
                 var newOption = Instantiate(_firstObj, optionsContent).GetComponent<OptionScript>();
@@ -188,6 +190,14 @@ namespace BetterUnityDropdown
             {
                 optionsObject.sizeDelta = new Vector2(optionsObject.sizeDelta.x, 0);
                 Closed();
+            }
+        }
+
+        private void RotateDropdownArrowIcon()
+        {
+            if (_dropdownArrowIcon)
+            {
+                _dropdownArrowIcon.rectTransform.Rotate(Vector3.forward, 180);
             }
         }
 
@@ -364,6 +374,7 @@ namespace BetterUnityDropdown
             _optionsCanvasSorting.sortingOrder = 100;
             _backCanvasSorting.sortingOrder = 100;
             optionsObject.gameObject.SetActive(false);
+            RotateDropdownArrowIcon();
             for (int i = 0; i < _spawnedList.Count; i++)
             {
                 Destroy(_spawnedList[i].gameObject);
